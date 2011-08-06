@@ -18,9 +18,9 @@
   </developers>
 
   <scm>
-    <connection>scm:git:ssh://github.com/jenkinsci/emotioanl-jenkins-plugin.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com/jenkinsci/emotioanl-jenkins-plugin.git</developerConnection>
-    <url>https://github.com/jenkinsci/emotioanl-jenkins-plugin</url>
+    <connection>scm:git:ssh://github.com/jenkinsci/emotional-jenkins-plugin.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/jenkinsci/emotional-jenkins-plugin.git</developerConnection>
+    <url>https://github.com/jenkinsci/emotional-jenkins-plugin</url>
   </scm>
   <url>https://wiki.jenkins-ci.org/display/JENKINS/Emotional+Jenkins+Plugin</url>
 
