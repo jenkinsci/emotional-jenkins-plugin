@@ -22,6 +22,7 @@
     <developerConnection>scm:git:ssh://git@github.com/jenkinsci/emotioanl-jenkins-plugin.git</developerConnection>
     <url>https://github.com/jenkinsci/emotioanl-jenkins-plugin</url>
   </scm>
+  <url>https://wiki.jenkins-ci.org/display/JENKINS/Emotional+Jenkins+Plugin</url>
 
   <!-- get every artifact through maven.glassfish.org, which proxies all the artifacts that we need -->
   <repositories>
