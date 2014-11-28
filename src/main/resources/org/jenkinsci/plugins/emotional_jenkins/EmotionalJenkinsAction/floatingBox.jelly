@@ -1,7 +1,7 @@
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt" xmlns:local="local">
   <j:set var="result" value="${it.lastBuild.result.toString()}"/>
   <script>
-    Element.setStyle($('main-table'), {
+    Element.setStyle($('side-panel'), {
       <j:choose>
         <j:when test='${result.equals("UNSTABLE")}'>
           'background-image': 'url(${rootURL}/plugin/emotional-jenkins-plugin/images/sad-jenkins.png)'
@@ -13,6 +13,8 @@
           'background-image': 'url(${rootURL}/plugin/emotional-jenkins-plugin/images/jenkins.png)'
         </j:otherwise>
       </j:choose>
+      ,'background-repeat' : 'no-repeat'
+      ,'background-size' : '55%'
     });
   </script>
 </j:jelly>
