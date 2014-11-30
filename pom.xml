@@ -8,7 +8,7 @@
 
   <groupId>org.jenkins-ci.plugins</groupId>
   <artifactId>emotional-jenkins-plugin</artifactId>
-  <version>1.2</version>
+  <version>1.3-SNAPSHOT</version>
   <packaging>hpi</packaging>
   <developers>
     <developer>
@@ -21,7 +21,7 @@
     <connection>scm:git:ssh://github.com/jenkinsci/emotional-jenkins-plugin.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/jenkinsci/emotional-jenkins-plugin.git</developerConnection>
     <url>https://github.com/jenkinsci/emotional-jenkins-plugin</url>
-    <tag>emotional-jenkins-plugin-1.2</tag>
+    <tag>HEAD</tag>
   </scm>
   <url>https://wiki.jenkins-ci.org/display/JENKINS/Emotional+Jenkins+Plugin</url>
 
