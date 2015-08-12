@@ -7,8 +7,6 @@ public final class EmotionalJenkinsAction implements ProminentProjectAction {
 
     private Result result;
 
-    public EmotionalJenkinsAction() {}
-
     public EmotionalJenkinsAction(Result result) {
         this.result = result;
     }
