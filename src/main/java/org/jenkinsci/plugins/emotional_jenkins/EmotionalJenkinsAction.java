@@ -7,6 +7,9 @@ public final class EmotionalJenkinsAction implements ProminentProjectAction {
 
     private Result result;
 
+    @Deprecated
+    public EmotionalJenkinsAction() {}
+
     public EmotionalJenkinsAction(Result result) {
         this.result = result;
     }
