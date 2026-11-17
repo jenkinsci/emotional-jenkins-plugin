@@ -1,50 +1,28 @@
 package org.jenkinsci.plugins.emotional_jenkins;
 
+import hudson.EnvVars;
 import hudson.Extension;
-import hudson.Launcher;
-import hudson.model.*;
+import hudson.model.AbstractProject;
+import hudson.model.Run;
+import hudson.model.TaskListener;
 import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.BuildStepMonitor;
 import hudson.tasks.Notifier;
 import hudson.tasks.Publisher;
+import jenkins.tasks.SimpleBuildStep;
 import net.sf.json.JSONObject;
-import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerRequest2;
 
-import java.io.IOException;
+public class EmotionalJenkinsPublisher extends Notifier implements SimpleBuildStep {
 
-public class EmotionalJenkinsPublisher extends Notifier {
-
-    public boolean perform(AbstractBuild<?, ?> build, Launcher launcher, BuildListener listener) throws InterruptedException, IOException {
-/*
-        DESCRIPTOR.counter++;
-        int value = DESCRIPTOR.counter % 5;
-        switch (value) {
-            case 0:
-                build.setResult(Result.FAILURE);
-                break;
-            case 1:
-                build.setResult(Result.UNSTABLE);
-                break;
-            case 2:
-                build.setResult(Result.ABORTED);
-                break;
-            case 3:
-                build.setResult(Result.NOT_BUILT);
-                break;
-            default:
-        }
-*/
-
-        build.getActions().add(new EmotionalJenkinsAction(build.getResult()));
-        return true;
+    @Override
+    public void perform(Run<?, ?> run, EnvVars env, TaskListener listener) {
+        run.addAction(new EmotionalJenkinsAction(run.getResult()));
     }
 
-    public Action getProjectAction(Project project) {
-        return new EmotionalJenkinsAction();
-    }
-
+    @Override
     public BuildStepMonitor getRequiredMonitorService() {
-        return BuildStepMonitor.BUILD;
+        return BuildStepMonitor.NONE;
     }
 
     @Override
@@ -56,25 +34,18 @@ public class EmotionalJenkinsPublisher extends Notifier {
     public static final DescriptorImpl DESCRIPTOR = new DescriptorImpl();
 
     public static final class DescriptorImpl extends BuildStepDescriptor<Publisher> {
-//        public static int counter = 0;
 
-        DescriptorImpl() {
+        public DescriptorImpl() {
             super(EmotionalJenkinsPublisher.class);
-            load();
         }
 
+        @Override
         public String getDisplayName() {
             return "Emotional Jenkins";
         }
 
         @Override
-        public boolean configure(StaplerRequest req, JSONObject formData) throws FormException {
-            save();
-            return super.configure(req, formData);
-        }
-
-        @Override
-        public Publisher newInstance(StaplerRequest req, JSONObject formData) throws FormException {
+        public Publisher newInstance(StaplerRequest2 req, JSONObject formData) throws FormException {
             return new EmotionalJenkinsPublisher();
         }
 
