@@ -1,0 +1,7 @@
+@"
+target/
+*.hpi
+*.jpi
+*.war
+*.jar
+"@ | Add-Content .gitignore
