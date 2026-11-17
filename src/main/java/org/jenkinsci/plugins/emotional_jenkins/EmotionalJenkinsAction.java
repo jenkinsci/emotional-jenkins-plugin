@@ -1,21 +1,45 @@
 package org.jenkinsci.plugins.emotional_jenkins;
 
+import hudson.model.Action;
 import hudson.model.ProminentProjectAction;
 import hudson.model.Result;
+import java.util.Collection;
+import java.util.Collections;
+import jenkins.tasks.SimpleBuildStep;
 
-public final class EmotionalJenkinsAction implements ProminentProjectAction {
+public final class EmotionalJenkinsAction implements ProminentProjectAction, SimpleBuildStep.LastBuildAction {
 
-    private Result result;
+    private final Result result;
 
-    public EmotionalJenkinsAction() {}
+    public EmotionalJenkinsAction() {
+        this(null);
+    }
 
     public EmotionalJenkinsAction(Result result) {
         this.result = result;
     }
 
-    public String getIconFileName() { return null; }
-    public String getDisplayName() { return ""; }
-    public String getUrlName() { return ""; }
+    @Override
+    public String getIconFileName() {
+        return null;
+    }
 
-    public Result getResult() { return result; }
+    @Override
+    public String getDisplayName() {
+        return "";
+    }
+
+    @Override
+    public String getUrlName() {
+        return "";
+    }
+
+    public Result getResult() {
+        return result;
+    }
+
+    @Override
+    public Collection<? extends Action> getProjectActions() {
+        return Collections.singleton(this);
+    }
 }
