@@ -12,7 +12,7 @@
 
   <groupId>org.jenkins-ci.plugins</groupId>
   <artifactId>emotional-jenkins-plugin</artifactId>
-  <version>999999-SNAPSHOT</version>
+  <version>${changelist}</version>
   <packaging>hpi</packaging>
 
   <url>https://github.com/jenkinsci/emotional-jenkins-plugin</url>
@@ -40,8 +40,9 @@
   </scm>
 
   <properties>
+    <!-- Versioning -->
     <changelist>999999-SNAPSHOT</changelist>
-    <gitHubRepo>jenkinsci/${project.artifactId}-plugin</gitHubRepo>
+    <gitHubRepo>jenkinsci/${project.artifactId}</gitHubRepo>
 
     <!-- Java -->
     <java.level>25</java.level>
