@@ -1,0 +1,7 @@
+#side-panel .emotional-jenkins-figure {
+  display: block;
+  width: min(60%, 160px);
+  height: auto;
+  margin: 1.5rem 0 0 0.75rem;
+  pointer-events: none;
+}

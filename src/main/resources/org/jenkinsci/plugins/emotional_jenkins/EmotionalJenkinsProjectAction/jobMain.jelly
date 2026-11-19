@@ -1,0 +1,5 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler">
+  <span class="emotional-jenkins" data-mood="${it.mood}" data-image="${rootURL}/plugin/emotional-jenkins-plugin/images/${it.imageFileName}" hidden="hidden"/>
+  <st:adjunct includes="org.jenkinsci.plugins.emotional_jenkins.EmotionalJenkinsAction.emotional"/>
+</j:jelly>

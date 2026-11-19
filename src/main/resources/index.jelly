@@ -1,7 +1,4 @@
 <?jelly escape-by-default='true'?>
-<!--
-  This view is used to render the installed plugins page.
--->
 <div>
-  This plugin is a sample to explain how to write a Jenkins plugin.
+  Mr. Jenkins reacts to your build results: happy when a build succeeds, worried when it is unstable, angry when it fails and disappointed when it is aborted.
 </div>
