@@ -12,7 +12,7 @@
 
   <groupId>org.jenkins-ci.plugins</groupId>
   <artifactId>emotional-jenkins-plugin</artifactId>
-  <version>}${changelist}</version>
+  <version>${changelist}</version>
   <packaging>hpi</packaging>
 
   <url>https://github.com/jenkinsci/emotional-jenkins-plugin</url>
@@ -45,7 +45,7 @@
     <gitHubRepo>jenkinsci/${project.artifactId}</gitHubRepo>
 
     <!-- Java -->
-    <java.level>25</java.level>
+    <java.level>21</java.level>
 
     <!-- Jenkins baseline -->
     <jenkins.baseline>2.580</jenkins.baseline>
@@ -63,5 +63,60 @@
     <spotbugs.effort>Max</spotbugs.effort>
     <spotbugs.threshold>Low</spotbugs.threshold>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.jenkins.tools.bom</groupId>
+        <artifactId>bom-${jenkins.baseline}.x</artifactId>
+        <version>7349.vd0a_cb_6c87a_31</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.jenkins.plugins</groupId>
+      <artifactId>dark-theme</artifactId>
+      <version>652.vea_da_dfea_e769</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jenkins-ci.plugins.workflow</groupId>
+      <artifactId>workflow-basic-steps</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jenkins-ci.plugins.workflow</groupId>
+      <artifactId>workflow-cps</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jenkins-ci.plugins.workflow</groupId>
+      <artifactId>workflow-job</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jenkinsci.plugins</groupId>
+      <artifactId>pipeline-model-definition</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <repositories>
+    <repository>
+      <id>repo.jenkins-ci.org</id>
+      <url>https://repo.jenkins-ci.org/public/</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>repo.jenkins-ci.org</id>
+      <url>https://repo.jenkins-ci.org/public/</url>
+    </pluginRepository>
+  </pluginRepositories>
 
 </project>

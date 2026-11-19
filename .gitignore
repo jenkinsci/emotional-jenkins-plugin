@@ -1,7 +1,6 @@
-@"
 target/
+work/
 *.hpi
 *.jpi
-*.war
-*.jar
-"@ | Add-Content .gitignore
+.idea/
+*.iml

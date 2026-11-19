@@ -1,5 +1,6 @@
 package org.jenkinsci.plugins.emotional_jenkins;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.EnvVars;
 import hudson.Extension;
 import hudson.model.AbstractProject;
@@ -10,14 +11,29 @@ import hudson.tasks.BuildStepMonitor;
 import hudson.tasks.Notifier;
 import hudson.tasks.Publisher;
 import jenkins.tasks.SimpleBuildStep;
-import net.sf.json.JSONObject;
-import org.kohsuke.stapler.StaplerRequest2;
+import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.DataBoundConstructor;
 
+/**
+ * Post-build action / Pipeline step that lets Mr. Jenkins react to the build result.
+ *
+ * <p>In Pipeline it is available as {@code emotionalJenkins()}.
+ */
 public class EmotionalJenkinsPublisher extends Notifier implements SimpleBuildStep {
 
+    @DataBoundConstructor
+    public EmotionalJenkinsPublisher() {}
+
     @Override
-    public void perform(Run<?, ?> run, EnvVars env, TaskListener listener) {
-        run.addAction(new EmotionalJenkinsAction(run.getResult()));
+    public boolean requiresWorkspace() {
+        return false;
+    }
+
+    @Override
+    public void perform(@NonNull Run<?, ?> run, @NonNull EnvVars env, @NonNull TaskListener listener) {
+        if (run.getAction(EmotionalJenkinsAction.class) == null) {
+            run.addAction(new EmotionalJenkinsAction());
+        }
     }
 
     @Override
@@ -25,28 +41,14 @@ public class EmotionalJenkinsPublisher extends Notifier implements SimpleBuildSt
         return BuildStepMonitor.NONE;
     }
 
-    @Override
-    public BuildStepDescriptor<Publisher> getDescriptor() {
-        return DESCRIPTOR;
-    }
-
     @Extension
-    public static final DescriptorImpl DESCRIPTOR = new DescriptorImpl();
-
+    @Symbol("emotionalJenkins")
     public static final class DescriptorImpl extends BuildStepDescriptor<Publisher> {
 
-        public DescriptorImpl() {
-            super(EmotionalJenkinsPublisher.class);
-        }
-
+        @NonNull
         @Override
         public String getDisplayName() {
             return "Emotional Jenkins";
-        }
-
-        @Override
-        public Publisher newInstance(StaplerRequest2 req, JSONObject formData) throws FormException {
-            return new EmotionalJenkinsPublisher();
         }
 
         @Override

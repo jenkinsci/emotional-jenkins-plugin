@@ -1,88 +1,178 @@
-# Jenkins Emotional Plugin
+# Emotional Jenkins plugin
 
 [![Jenkins Plugin](https://img.shields.io/jenkins/plugin/v/emotional-jenkins-plugin?label=Jenkins%20Plugin)](https://plugins.jenkins.io/emotional-jenkins-plugin/)
+[![GitHub release](https://img.shields.io/github/release/jenkinsci/emotional-jenkins-plugin.svg?label=changelog)](https://github.com/jenkinsci/emotional-jenkins-plugin/releases/latest)
 [![Jenkins Plugin Installs](https://img.shields.io/jenkins/plugin/i/emotional-jenkins-plugin?color=blue)](https://plugins.jenkins.io/emotional-jenkins-plugin/)
-[![GitHub Issues](https://img.shields.io/github/issues/jenkinsci/emotional-jenkins-plugin)](https://github.com/jenkinsci/emotional-jenkins-plugin/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/jenkinsci/emotional-jenkins-plugin)](https://github.com/jenkinsci/emotional-jenkins-plugin/pulls)
-[![License](https://img.shields.io/github/license/jenkinsci/emotional-jenkins-plugin)](https://github.com/jenkinsci/emotional-jenkins-plugin/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/jenkinsci/emotional-jenkins-plugin)](LICENSE.txt)
 
 <a href="https://jenkins.io">
-    <img width="400" src="https://www.jenkins.io/images/jenkins-logo-title-dark.svg" alt="Jenkins logo"> 
+    <img width="400" src="https://www.jenkins.io/images/jenkins-logo-title-dark.svg" alt="Jenkins logo">
 </a>
 
-## What is it
+## What it is
 
-Emotional Jenkins is a fun Jenkins plugin that changes Mr. Jenkins' background expression based on the result of your builds.
-When a build fails, Jenkins gets angry. When a build is unstable, he looks sad. And when everything goes well, he keeps his usual smile.
+Mr. Jenkins has feelings too.
 
-A little personality for your Jenkins dashboard!
+This plugin lets him show them: after every build, Mr. Jenkins appears in the side panel and reacts to the result.
+He is happy when the build succeeds, worried when it is unstable, angry when it fails, and disappointed when it is aborted.
 
-![alt text](image.png)
+<p>
+  <img src="src/main/webapp/images/happy-jenkins.png" width="120" alt="Happy Mr. Jenkins">
+  <img src="src/main/webapp/images/worried-jenkins.png" width="120" alt="Worried Mr. Jenkins">
+  <img src="src/main/webapp/images/angry-jenkins.png" width="120" alt="Angry Mr. Jenkins">
+  <img src="src/main/webapp/images/disappointed-jenkins.png" width="120" alt="Disappointed Mr. Jenkins">
+</p>
 
+It works with Freestyle jobs and with Declarative and Scripted Pipelines.
 
 ## Table of Contents
 
-- [Configuration](#configuration)
-- [Expressions](#expressions)
-  - [Successful Build](#successful-build)
-  - [Unstable Build](#unstable-build)
-  - [Failed Build](#failed-build)
+- [Download & Installation](#download--installation)
+- [Usage](#usage)
+  - [Freestyle jobs](#freestyle-jobs)
+  - [Pipeline jobs](#pipeline-jobs)
+- [Moods](#moods)
+- [Screenshots](#screenshots)
+  - [Dark theme](#dark-theme)
 - [Requirements](#requirements)
+- [Release Notes](#release-notes)
 - [Contributing](#contributing)
+- [Credits](#credits)
+- [Maintainers](#maintainers)
 - [License](#license)
 
-## Configuration 
+## Download & Installation
 
-To enable Emotional Jenkins for a job:
+Install the plugin from the Jenkins Plugin Manager (_Manage Jenkins > Plugins > Available plugins_, search for **Emotional Jenkins**),
+or download the [latest .hpi](https://updates.jenkins.io/latest/emotional-jenkins-plugin.hpi) and upload it via _Manage Jenkins > Plugins > Advanced settings_.
 
-1. Open your Jenkins job.
-2. Click **Configure**.
-3. Navigate to the **Post-build Actions** section.
-4. Click **Add post-build action**.
-5. Select **Emotional Jenkins**.
-6. Save your configuration.
+## Usage
 
-Once enabled, Emotional Jenkins automatically updates Mr. Jenkins' background expression based on the build result.
+### Freestyle jobs
 
-## Expressions
+1. Open the job's configuration page.
+2. In **Post-build Actions**, click **Add post-build action** and select **Emotional Jenkins**.
+3. Save, then run a build. Mr. Jenkins appears in the side panel of the build page and the job page.
 
-Emotional Jenkins changes Mr. Jenkins' appearance according to the outcome of your builds.
+![The Emotional Jenkins post-build action](docs/images/freestyle-post-build-action.png)
 
-### Successful Build
+### Pipeline jobs
 
-When a build succeeds, Mr. Jenkins keeps his happy expression.
+Add the `emotionalJenkins()` step to your Jenkinsfile. In a Declarative Pipeline, put it in `post { always { ... } }`
+so it runs whatever the outcome:
 
-![Happy Jenkins](src/main/webapp/images/jenkins.png)
+```groovy
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                sh './gradlew build'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh './gradlew test'
+            }
+        }
+    }
+    post {
+        always {
+            emotionalJenkins()
+        }
+    }
+}
+```
 
-### Unstable Build
+In a Scripted Pipeline, call it at the end, using `try`/`finally` so it also runs when the build fails:
 
-When a build is unstable, Mr. Jenkins looks sad.
+```groovy
+node {
+    try {
+        stage('Build') {
+            sh 'make'
+        }
+    } finally {
+        emotionalJenkins()
+    }
+}
+```
 
-![Sad Jenkins](src/main/webapp/images/sad-jenkins.png)
+Good to know:
 
-### Failed Build
+- Mr. Jenkins shows the **final** result of the build, even though the step runs before the build has finished.
+  A build that fails after the step was called still makes him angry.
+- The step does not need an agent or a workspace, so it also works with `agent none`.
+- On the job page, Mr. Jenkins shows the mood of the last completed build that used the plugin.
 
-When a build fails, Mr. Jenkins gets angry.
+## Moods
 
-![Angry Jenkins](src/main/webapp/images/angry-jenkins.png)
+| Build result        | Mood         | Mr. Jenkins |
+|---------------------|--------------|-------------|
+| Success             | Happy        | <img src="src/main/webapp/images/happy-jenkins.png" width="80" alt="Happy Mr. Jenkins"> |
+| Unstable            | Worried      | <img src="src/main/webapp/images/worried-jenkins.png" width="80" alt="Worried Mr. Jenkins"> |
+| Failure             | Angry        | <img src="src/main/webapp/images/angry-jenkins.png" width="80" alt="Angry Mr. Jenkins"> |
+| Aborted / not built | Disappointed | <img src="src/main/webapp/images/disappointed-jenkins.png" width="80" alt="Disappointed Mr. Jenkins"> |
+
+## Screenshots
+
+These screenshots come from Declarative Pipelines that use `emotionalJenkins()` in `post { always { ... } }`.
+
+| Success | Unstable |
+|---------|----------|
+| ![Successful build: Mr. Jenkins is happy](docs/images/build-success.png) | ![Unstable build: Mr. Jenkins is worried](docs/images/build-unstable.png) |
+| **Failure** | **Aborted** |
+| ![Failed build: Mr. Jenkins is angry](docs/images/build-failure.png) | ![Aborted build: Mr. Jenkins is disappointed](docs/images/build-aborted.png) |
+
+Mr. Jenkins also appears on the job page, showing the mood of the latest build:
+
+![Job page of a failing pipeline with an angry Mr. Jenkins](docs/images/job-page.png)
+
+### Dark theme
+
+The mood images have transparent backgrounds, so Mr. Jenkins also looks right with the
+[Dark Theme](https://plugins.jenkins.io/dark-theme/):
+
+| Success | Unstable |
+|---------|----------|
+| ![Successful build in the dark theme](docs/images/build-success-dark.png) | ![Unstable build in the dark theme](docs/images/build-unstable-dark.png) |
+| **Failure** | **Aborted** |
+| ![Failed build in the dark theme](docs/images/build-failure-dark.png) | ![Aborted build in the dark theme](docs/images/build-aborted-dark.png) |
 
 ## Requirements
 
-- Java 25 or later.
-- Jenkins compatible with the plugin's configured Jenkins baseline.
+- Jenkins 2.580.2 or newer
+- Java 21 or newer
+
+## Release Notes
+
+See [GitHub Releases](https://github.com/jenkinsci/emotional-jenkins-plugin/releases).
 
 ## Contributing
 
-Contributions are welcome!
+Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
-1. Fork the repository.
-2. Create a branch for your changes.
-3. Make your changes and add tests when applicable.
-4. Run the test suite using `mvn clean verify`.
-5. Submit a pull request with a clear description of your changes.
+To try your changes locally, run:
 
-Please ensure that your changes follow the project's coding standards.
+```shell
+mvn hpi:run
+```
+
+and open <http://localhost:8080/jenkins/>. Run the full test suite with `mvn clean verify`.
+
+## Credits
+
+* Originally created by [Masanobu Imai](https://github.com/masanobuimai).
+* Inspiration for the [Chuck Norris plugin](https://plugins.jenkins.io/chucknorris/).
+
+## Maintainers
+
+This plugin is actively maintained. Co-contributors and feedback are welcome — please open an [issue](https://github.com/jenkinsci/emotional-jenkins-plugin/issues) or pull request.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE.txt).
+
+---
+
+[Jenkins community](https://www.jenkins.io/participate/) • [Report a bug](https://github.com/jenkinsci/emotional-jenkins-plugin/issues)
