@@ -31,6 +31,7 @@ It works with Freestyle jobs and with Declarative and Scripted Pipelines.
 - [Usage](#usage)
   - [Freestyle jobs](#freestyle-jobs)
   - [Pipeline jobs](#pipeline-jobs)
+  - [Job DSL and Configuration as Code](#job-dsl-and-configuration-as-code)
 - [Moods](#moods)
 - [Screenshots](#screenshots)
   - [Dark theme](#dark-theme)
@@ -104,6 +105,32 @@ Good to know:
   A build that fails after the step was called still makes him angry.
 - The step does not need an agent or a workspace, so it also works with `agent none`.
 - On the job page, Mr. Jenkins shows the mood of the last completed build that used the plugin.
+
+### Job DSL and Configuration as Code
+
+With [Job DSL](https://plugins.jenkins.io/job-dsl/), add the `emotionalJenkins()` publisher to a freestyle job:
+
+```groovy
+freeStyleJob('my-app') {
+    publishers {
+        emotionalJenkins()
+    }
+}
+```
+
+[Configuration as Code](https://plugins.jenkins.io/configuration-as-code/) creates jobs through Job DSL scripts, so the same snippet works in its `jobs:` section:
+
+```yaml
+jobs:
+  - script: >
+      freeStyleJob('my-app') {
+        publishers {
+          emotionalJenkins()
+        }
+      }
+```
+
+For Pipeline jobs created this way, call the `emotionalJenkins()` step in the Jenkinsfile, as shown above.
 
 ## Moods
 
