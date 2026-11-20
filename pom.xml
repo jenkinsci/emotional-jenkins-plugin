@@ -17,21 +17,6 @@
 
   <url>https://github.com/jenkinsci/emotional-jenkins-plugin</url>
 
-  <developers>
-    <developer>
-      <id>masanobuimai</id>
-      <name>Masanobu Imai</name>
-    </developer>
-    <developer>
-      <id>ayyYoSam</id>
-      <name>Sam Richard</name>
-    </developer>
-    <developer>
-      <id>mPokornyETM</id>
-      <name>Martin Pokorny</name>
-    </developer>
-  </developers>
-
   <scm>
     <connection>scm:git:ssh://github.com/jenkinsci/emotional-jenkins-plugin.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/jenkinsci/emotional-jenkins-plugin.git</developerConnection>
