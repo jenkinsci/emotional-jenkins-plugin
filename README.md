@@ -190,6 +190,7 @@ and open <http://localhost:8080/jenkins/>. Run the full test suite with `mvn cle
 ## Credits
 
 * Originally created by [Masanobu Imai](https://github.com/masanobuimai).
+* The mood images are based on the plugin's original artwork and the [Jenkins logo](https://www.jenkins.io/artwork/) by Charles Lowell and Frontside, licensed under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
 * Inspiration for the [Chuck Norris plugin](https://plugins.jenkins.io/chucknorris/).
 
 ## Maintainers

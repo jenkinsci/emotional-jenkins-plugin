@@ -1,7 +1,11 @@
 #side-panel .emotional-jenkins-figure {
+  /* Centred in the side panel, so it lines up with the task list and the Builds card
+     whatever their padding (which differs between Jenkins versions, themes and plugins). */
   display: block;
+  box-sizing: border-box;
   width: min(60%, 160px);
+  max-width: 100%;
   height: auto;
-  margin: 1.5rem 0 0 0.75rem;
+  margin: 1.5rem auto 0;
   pointer-events: none;
 }
