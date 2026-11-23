@@ -3,7 +3,8 @@
      whatever their padding (which differs between Jenkins versions, themes and plugins). */
   display: block;
   box-sizing: border-box;
-  width: min(60%, 160px);
+  /* Capped below the artwork's native 240px width so it never upscales and blurs. */
+  width: min(80%, 220px);
   max-width: 100%;
   height: auto;
   margin: 1.5rem auto 0;
