@@ -1,0 +1,22 @@
+<div>
+  <p>
+    Mr. Jenkins reacts to the build result. After the build, he appears in the side panel of the build page and of the
+    job page (where he shows the mood of the last completed build that used this action).
+  </p>
+  <table>
+    <tr><th>Build result</th><th>Mood</th></tr>
+    <tr><td>Success</td><td>happy</td></tr>
+    <tr><td>Unstable</td><td>worried</td></tr>
+    <tr><td>Failure</td><td>angry</td></tr>
+    <tr><td>Aborted or not built</td><td>disappointed</td></tr>
+  </table>
+  <p>
+    The mood follows the <em>final</em> result of the build, so it is right even when the action runs before the build
+    has finished. It needs no agent or workspace.
+  </p>
+  <p>
+    In a Pipeline, use the <code>emotionalJenkins()</code> step. In a Declarative Pipeline, put it in
+    <code>post { always { emotionalJenkins() } }</code> so it runs whatever the outcome; in a Scripted Pipeline, call it
+    in a <code>finally</code> block at the end.
+  </p>
+</div>
