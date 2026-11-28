@@ -1,0 +1,6 @@
+Started by user anonymous
+Building in workspace /var/jenkins_home/workspace/failed-freestyle
+[failed-freestyle] $ /bin/sh -xe /tmp/hudson1.sh
++ exit 1
+Build step 'Execute shell' marked build as failure
+Finished: FAILURE
