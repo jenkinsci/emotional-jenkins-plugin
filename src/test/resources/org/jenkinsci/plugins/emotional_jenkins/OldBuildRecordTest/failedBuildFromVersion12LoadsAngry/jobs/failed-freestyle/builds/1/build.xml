@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<build>
+  <actions>
+    <hudson.model.CauseAction>
+      <causes>
+        <hudson.model.Cause_-UserIdCause/>
+      </causes>
+    </hudson.model.CauseAction>
+    <org.jenkinsci.plugins.emotional__jenkins.EmotionalJenkinsAction plugin="emotional-jenkins-plugin@1.2">
+      <result>FAILURE</result>
+    </org.jenkinsci.plugins.emotional__jenkins.EmotionalJenkinsAction>
+  </actions>
+  <queueId>1</queueId>
+  <timestamp>1480000000000</timestamp>
+  <startTime>1480000000010</startTime>
+  <result>FAILURE</result>
+  <duration>130</duration>
+  <charset>UTF-8</charset>
+  <keepLog>false</keepLog>
+  <builtOn></builtOn>
+  <workspace>/var/jenkins_home/workspace/failed-freestyle</workspace>
+  <hudsonVersion>1.651.3</hudsonVersion>
+  <scm class="hudson.scm.NullChangeLogParser"/>
+</build>
